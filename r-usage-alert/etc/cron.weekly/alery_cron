@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Run the monitoring script weekly
-* * * * 0 python3 /usr/local/bin/alery

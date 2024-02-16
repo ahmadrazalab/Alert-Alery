@@ -1,5 +1,0 @@
-Package: monitoring-package
-Version: 1.0
-Architecture: all
-Maintainer: DEVOPS  ar.raza.siddiqui@gmail.com
-Description: Automated server monitoring script (disk, ram, cpu)
