@@ -1,0 +1,66 @@
+import smtplib
+from email.mime.text import MIMEText
+import subprocess
+
+def send_email_alert(subject, body):
+    sender_email = 'localhostserverport@gmail.com'
+    receiver_email = 'ahmad@mcsam.in'
+    password = 'epfy cpbp nqpz cozk'  # Use App Password if 2FA is enabled
+
+    message = MIMEText(body)
+    message['Subject'] = subject
+    message['From'] = sender_email
+    message['To'] = receiver_email
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        server.quit()
+        print("Email alert sent successfully!")
+    except Exception as e:
+        print("Failed to send email alert:", e)
+
+def parse_ssh_logs():
+    try:
+        # Execute command to get all ssh login entries from auth.log
+        ssh_log_entries = subprocess.check_output("grep 'sshd.*Accepted.*' /var/log/auth.log", shell=True, text=True)
+    except subprocess.CalledProcessError:
+        print("Failed to fetch SSH log entries.")
+        return []
+
+    ssh_login_info = []
+
+    # Extract relevant information from the log entries
+    for entry in ssh_log_entries.split('\n'):
+        if entry:
+            parts = entry.split()
+            date_time = ' '.join(parts[0:3])
+            ip_address = parts[10]
+            username = parts[8]
+            auth_method = 'password' if 'password' in entry else 'key'
+            ssh_login_info.append((date_time, ip_address, username, auth_method))
+
+    return ssh_login_info
+
+def main():
+    ssh_login_info = parse_ssh_logs()
+
+    if ssh_login_info:
+        # Prepare email body with SSH login information
+        email_body = "SSH Login Events:\n\n"
+        for date_time, ip_address, username, auth_method in ssh_login_info:
+            email_body += f"Date/Time: {date_time}\n"
+            email_body += f"IP Address: {ip_address}\n"
+            email_body += f"Username: {username}\n"
+            email_body += f"Authentication Method: {auth_method}\n"
+            email_body += "\n"
+
+        # Send email alert
+        subject = "SSH Login Events"
+        send_email_alert(subject, email_body)
+    else:
+        print("No SSH login events found.")
+
+if __name__ == "__main__":
+    main()

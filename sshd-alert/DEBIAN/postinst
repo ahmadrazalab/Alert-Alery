@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Ensure the cron job is executable
+chmod +x /etc/cron.weekly/alery_cron
+
+# This script will be executed after the package is installed.
+# Add the following lines to DEBIAN/postinst:

@@ -1,0 +1,5 @@
+Package: ssh-login-attempts
+Version: 1.0
+Architecture: all
+Maintainer: DEVOPS  ar.raza.siddiqui@gmail.com
+Description: SSH login information on mail 
