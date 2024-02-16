@@ -13,26 +13,26 @@ pip3 install psutil
 
 # add the smtp creds alery python script in usr dir
 ```
-/usr/local/bin/alery
+/usr/local/bin/ssh-login
 ```
 
 # update the cron timing in the etc cron dir 
 ```
-/etc/cron.weekly/alery_cron
+/etc/cron.weekly/ssh_login_cron
 ```
 
 # build the package 
 ```
-dpkg-deb --build r-usage-alert
+dpkg-deb --build sshd-alert
 ```
 
 # and install the package
 ```
-dpkg -i r-usage-alert.deb
+dpkg -i sshd-alert.deb
 ```
 
 # how to use in cmd line mode (manual)
 ```
-python3 alery 
-python3 /usr/local/bin/alery
+python3 ssh-login
+python3 /usr/local/bin/ssh-login
 ```
