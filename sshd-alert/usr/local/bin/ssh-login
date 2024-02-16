@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 import subprocess
 
 def send_email_alert(subject, body):
-    sender_email = 'localhostserverport@gmail.com'
-    receiver_email = 'ahmad@mcsam.in'
-    password = 'epfy cpbp nqpz cozk'  # Use App Password if 2FA is enabled
+    sender_email = 'test@gmail.com'
+    receiver_email = 'dev@test.in'
+    password = 'abcd efgh'  # Use App Password if 2FA is enabled
 
     message = MIMEText(body)
     message['Subject'] = subject
